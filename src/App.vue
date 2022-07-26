@@ -1,12 +1,15 @@
 <template>
   <el-config-provider namespace="ep">
-    <BaseHeader />
+    <!--<BaseHeader />-->
     <div style="display: flex">
-      <BaseSide />
+      <MySide />
+      <DefTable/>
+      <!--
       <div>
         <img alt="Vue logo" class="element-plus-logo" src="./assets/logo.png" />
         <HelloWorld msg="Hello Vue 3.0 + Element Plus + Vite" />
       </div>
+      -->
     </div>
   </el-config-provider>
 </template>
