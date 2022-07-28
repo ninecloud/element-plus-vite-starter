@@ -1,29 +1,36 @@
 <template>
  <el-form
     border
-    ref="ruleFormRef"
-    :model="ruleForm"
+    ref="defTableRef"
+    :model="defTable"
     :rules="rules"
     label-width="120px"
     class="demo-ruleForm"
     status-icon
-    width="1000px"
+    style="width: 40%"
   >
-  <p style="text-align:left;">数据源</p>
+    <p style="text-align:left;">数据源</p>
     <el-form-item label="唯一标识" prop="name">
-      <el-input v-model="ruleForm.name" placeholder="t01"/>
+      <el-input v-model="defTable.name" placeholder="t01"/>
     </el-form-item>
     <el-form-item label="库名" prop="databaseName">
-      <el-input v-model="ruleForm.databaseName" placeholder="default"/>
+      <el-input v-model="defTable.databaseName" placeholder="default"/>
     </el-form-item>
     <el-form-item label="表名" prop="tableName">
-      <el-input v-model="ruleForm.tableName" placeholder="ods_xxx"/>
+      <el-input v-model="defTable.tableName" placeholder="ods_xxx"/>
     </el-form-item>
     <el-form-item label="筛选条件" prop="where">
-      <el-input v-model="ruleForm.where" type="textarea" />
+      <el-input v-model="defTable.where" type="textarea" />
     </el-form-item>
 
-    <def-column width="1000px"/>
+    <p style="text-align:left;">每列的计算公式</p>
+
+    <def-column/>
+
+    <br>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm(defTableRef)">看下</el-button>
+    </el-form-item>
 
   </el-form>
 </template>
@@ -33,9 +40,8 @@
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 
-const formSize = ref('default')
-const ruleFormRef = ref<FormInstance>()
-const ruleForm = reactive({
+const defTableRef = ref<FormInstance>()
+const defTable = reactive({
   name: '',
   databaseName: '',
   tableName: '',
@@ -58,23 +64,7 @@ const rules = reactive<FormRules>({
 })
 
 const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate((valid, fields) => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!', fields)
-    }
-  })
+    alert(JSON.stringify(formEl))
 }
 
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
-}
-
-const options = Array.from({ length: 10000 }).map((_, idx) => ({
-  value: `${idx + 1}`,
-  label: `${idx + 1}`,
-}))
 </script>
